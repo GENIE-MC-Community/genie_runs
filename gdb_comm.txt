@@ -1,0 +1,65 @@
+# Try to make splines
+gdb -tui gmkspl
+
+set args -p 14,-14 -t 1000060120 -o test.xml --event-generator-list CCCOH
+
+set args -p 12,-12 -t 1000060120 -o test.xml --event-generator-list CCQE
+
+set args -p 12,-12 -t 1000010010 -o test.xml --event-generator-list VLE
+set args -p 12,-12 -t 1000060120 -o test_carbon.xml --event-generator-list VLE
+
+# Reweight scan
+gdb -tui grwght1scan
+
+set args -f gntp.0.ghep.root -s FrInel_pi -t 3
+
+# For general running.
+gdb -tui gevgen
+
+set args -n 5 -p -12 -t 1000010010 -e 0.02 -r 100 \
+--seed 2989819 \
+--cross-sections test.xml \
+--event-generator-list VLE
+
+set args -n 5 -p 14 -t 1000060120 -e 0.02 -r 100 \
+--seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/gxspl-vA-v2.8.0.xml
+
+set args -n 5 -p 14 -t 1000060120 -e 0,10 -r 100 \
+-f 'x*exp(-x)' --seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 3 -r 100 \
+--seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 0,10 -r 100 \
+-f 'x*exp(-x)' --seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines_BSDEV4141.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 2 -r 100 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines_ber.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 1,4 -r 100 \
+-f '1 - (1/1000000)*log(x+1)' --seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines_ber.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 1 -r 100 \
+--seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/coh_carbon_splines_bergp.xml \
+--event-generator-list CCCOH
+
+set args -n 5 -p 14 -t 1000060120 -e 3 -r 100 \
+--seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/ccqe_carbon_splines.xml \
+--event-generator-list CCQE
+
+set args -n 5 -p 14 -t 1000060120 -e 100 -r 100 \
+--seed 2989819 \
+--cross-sections /minerva/app/users/perdue/GENIE/data/gxspl-vA-v2.8.0.xml
+

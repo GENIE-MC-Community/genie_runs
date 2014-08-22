@@ -1,0 +1,5 @@
+--num-callers=50 
+--leak-check=full 
+--verbose 
+--show-reachable=yes
+--suppressions=valgrind-genie.supp

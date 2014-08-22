@@ -1,0 +1,24 @@
+# we can't set breakpoints for .so's we haven't loaded yet without this
+set breakpoint pending on
+
+# print C++ standard strings
+define pcppstr
+ p *(char**)($arg0)._M_dataplus._M_p
+end
+
+#
+# Breakpoints ----------
+#
+
+# 1
+break main
+
+# 2
+break NuclearModelMap.cxx:100
+
+# 3
+break NuclearModelMap.cxx:141
+
+# 4
+break gRwght1Scan.cxx:430
+
