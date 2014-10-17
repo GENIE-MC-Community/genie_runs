@@ -30,8 +30,8 @@ end
 # 3 actual call to ProcessEventRecord(event_rec)
 break EventGenerator.cxx:118 if ffwd==false
 
-# 4
-#break GEVGDriver.cxx:267
+# 4 top of the event loop
+break gEvGen.cxx:270
 
 # 5
 #break KPhaseSpace.cxx:65
