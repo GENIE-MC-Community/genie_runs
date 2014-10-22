@@ -2,3 +2,6 @@
 *.ghep.root
 *.gst.root
 *.gtrac.root
+
+*splines*xml
+*log*txt
