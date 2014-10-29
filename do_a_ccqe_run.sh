@@ -10,6 +10,7 @@ fi
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
 # http://genie.hepforge.org/doxygen/html/PDGCodes_8h_source.html
+PROTON="1000010010"
 CARBON="1000060120"
 OXYGEN="1000080160"
 
