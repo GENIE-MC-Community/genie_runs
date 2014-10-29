@@ -11,6 +11,6 @@ fi
 XMLOUT=${XMLOUT}.xml
 echo "Making xml file $XMLOUT"
 
-nice gmkspl -p 14,-14 -t 1000060120 -o ${XMLOUT} --event-generator-list VLE
+nice gmkspl -p 12,-12 -t 1000060120 -o ${XMLOUT} --event-generator-list VLE
 
 
