@@ -32,6 +32,9 @@ break EventGenerator.cxx:118 if ffwd==false
 
 # 4 top of the event loop
 break gEvGen.cxx:270
+commands 4
+printf "The event number is %d\n", ievent
+end
 
 # 5
 #break KPhaseSpace.cxx:65

@@ -32,10 +32,12 @@ break EventGenerator.cxx:118 if ffwd==false
 
 # 4 top of the event loop
 break gEvGen.cxx:270
+commands 4
+printf "The event number is %d\n", ievent
+end
 
-# break IBDInteractionListGenerator.cxx:47
-break StrumiaVissaniIBDPXSec.cxx:61
 # 5
-#break KPhaseSpace.cxx:65
+break RESKinematicsGenerator.cxx:365
 
-#break KineUtils.cxx:477
+# 6
+break ReinSeghalRESPXSec.cxx:75
