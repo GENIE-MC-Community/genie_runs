@@ -2,7 +2,7 @@
 
 # Generic SN run...
 
-NUMEVT=1000
+NUMEVT=100
 if [ $# -gt 0 ]; then
   NUMEVT=$1
 fi
@@ -14,9 +14,10 @@ PROTON="1000010010"
 CARBON="1000060120"
 OXYGEN="1000080160"
 
-TARGET=$OXYGEN
 TARGET=$CARBON
+TARGET=$OXYGEN
 
-gevgen -n $NUMEVT -p -12 -t $TARGET -e 0.02 -r 101 \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml >& run_log.txt
-
+gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.02 -r 101 \
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
+  --event-generator-list VLE \
+  >& run_log.txt

@@ -11,8 +11,8 @@ OXYGEN="1000080160"
 ARGON40="1000180400"
 
 TARGET=$OXYGEN
-TARGET=$CARBON
 TARGET=$PROTON
+TARGET=$CARBON
 
 # Optionally supply an extra tag for the file name.
 XMLOUT=vle_${TARGET}_splines
