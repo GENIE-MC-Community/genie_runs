@@ -11,10 +11,6 @@ define pcppstr
  p *(char**)($arg0)._M_dataplus._M_p
 end
 
-#
-# Breakpoints ----------
-#
-
 # 1
 break main
 
@@ -30,14 +26,17 @@ end
 # 3 actual call to ProcessEventRecord(event_rec)
 break EventGenerator.cxx:118 if ffwd==false
 
-# 4
-break GEVGDriver.cxx:267
+# 4 top of the event loop
+break gEvGen.cxx:270
+commands 4
+printf "The event number is %d\n", ievent
+end
 
 # 5
-break GEVGDriver.cxx:226
+break FermiMover.cxx:93
 
 # 6
-break GEVGDriver.cxx:220
+break StrumiaVissaniIBDPXSec.cxx:53
 
 # 7
 break QELInteractionListGenerator.cxx:51

@@ -15,37 +15,34 @@ end
 break main
 
 # 2
-break XSecSplineList.cxx:216 if i>0
-commands 2
-printf "i = %d; E[%d] = %f; xsec[%d] = %g\n", i, i-1, E[i-1], i-1, xsec[i-1]
-end
-
-# 3
-break GEVGDriver.cxx:688
-
-# 4
-break gMakeSplines.cxx:166
-
-# 5
 # watch the loop through event record visitors!
 # top of the loop. `p visitor->Id().Key()` (pvis above)
 # check the processor and see if you want to step in
 break EventGenerator.cxx:107 if ffwd==false
-commands 5
+commands 2
 pvisit
 end
                           
-# 6 actual call to ProcessEventRecord(event_rec)
+# 3 actual call to ProcessEventRecord(event_rec)
 break EventGenerator.cxx:118 if ffwd==false
 
+# 4 top of the event loop
+break gEvGen.cxx:270
+commands 4
+printf "The event number is %d\n", ievent
+end
+
+# 5
+break FermiMover.cxx:93
+
+# 6
+break StrumiaVissaniIBDPXSec.cxx:53
+
 # 7
-break GEVGDriver.cxx:267
+break QELInteractionListGenerator.cxx:51
 
 # 8
-break GEVGDriver.cxx:226
+break QELInteractionListGenerator.cxx:80
 
-# 9
-break GEVGDriver.cxx:220
-
-# 10
-break StrumiaVissaniIBDPXSec.cxx:53
+#9
+break IBDInteractionListGenerator.cxx:47
