@@ -44,5 +44,8 @@ break QELInteractionListGenerator.cxx:51
 # 8
 break QELInteractionListGenerator.cxx:80
 
-#9
+# 9
 break IBDInteractionListGenerator.cxx:47
+
+# 10
+break IBDKinematicsGenerator.cxx:111
