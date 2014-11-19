@@ -11,6 +11,10 @@ define pcppstr
  p *(char**)($arg0)._M_dataplus._M_p
 end
 
+#
+# Breakpoints ----------
+#
+
 # 1
 break main
 
@@ -33,19 +37,6 @@ printf "The event number is %d\n", ievent
 end
 
 # 5
-break FermiMover.cxx:88
+#break KPhaseSpace.cxx:65
 
-# 6
-break StrumiaVissaniIBDPXSec.cxx:53
-
-# 7
-break QELInteractionListGenerator.cxx:51
-
-# 8
-break QELInteractionListGenerator.cxx:80
-
-# 9
-break IBDInteractionListGenerator.cxx:47
-
-# 10
-break IBDKinematicsGenerator.cxx:111
+#break KineUtils.cxx:477
