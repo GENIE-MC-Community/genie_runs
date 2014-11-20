@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Generic SN run...
-
 NUMEVT=1000
 if [ $# -gt 0 ]; then
   NUMEVT=$1
@@ -20,4 +18,3 @@ TARGET=$CARBON
 gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -f 'x*exp(-x)' -r 101 \
   --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
   >& run_log.txt
-
