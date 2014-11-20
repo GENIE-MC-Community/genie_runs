@@ -2,7 +2,7 @@
 
 # Generic SN run...
 
-NUMEVT=100
+NUMEVT=1000
 if [ $# -gt 0 ]; then
   NUMEVT=$1
 fi
@@ -13,15 +13,11 @@ fi
 PROTON="1000010010"
 CARBON="1000060120"
 OXYGEN="1000080160"
-ARGON40="1000180400"
 
-TARGET=$CARBON
 TARGET=$OXYGEN
-TARGET=$ARGON40
+TARGET=$CARBON
 
-SPLINEFILE=vle_${TARGET}_splines.xml
-
-gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.01,0.03 -f 'x*exp(-x)' -r 101 \
-  --seed 2989819 --cross-sections $SPLINEFILE \
-  --event-generator-list VLE \
+gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -f 'x*exp(-x)' -r 101 \
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
   >& run_log.txt
+

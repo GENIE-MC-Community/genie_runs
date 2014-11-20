@@ -11,10 +11,9 @@ CARBON="1000060120"
 OXYGEN="1000080160"
 ARGON40="1000180400"
 
-TARGET=$OXYGEN
 TARGET=$PROTON
 TARGET=$CARBON
-TARGET=$ARGON40
+TARGET=$OXYGEN
 
 # Optionally supply an extra tag for the file name.
 XMLOUT=vle_${TARGET}_splines
@@ -24,5 +23,6 @@ fi
 XMLOUT=${XMLOUT}.xml
 echo "Making xml file $XMLOUT"
 
-nice gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE \
+gdb -tui --args gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE \
+  --message-thresholds Messenger_laconic.xml \
   -n $NKNOTS -e $MAX_ENERGY

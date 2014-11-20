@@ -1,8 +1,6 @@
 #!/bin/sh
 
-# Generic SN run...
-
-NUMEVT=1000
+NUMEVT=10
 if [ $# -gt 0 ]; then
   NUMEVT=$1
 fi
@@ -15,8 +13,6 @@ OXYGEN="1000080160"
 
 TARGET=$OXYGEN
 
-gdb -tui --args gevgen -n $NUMEVT -p -12 -t $TARGET -e 2 -r 101 \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
+gdb -tui --args gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -r 101 \
   --message-thresholds Messenger_laconic.xml \
-  --event-generator-list CCQE
-
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml

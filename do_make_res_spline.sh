@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# See config/EventGeneratorListAssembler.xml for other valid channels.
+NKNOTS=100
+MAX_ENERGY=120
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
@@ -20,6 +21,7 @@ if [ $# -gt 0 ]; then
   XMLOUT=${XMLOUT}_$1
 fi
 XMLOUT=${XMLOUT}.xml
-nice gmkspl -p -14,-12,12,14 -t $TARGET -o ${XMLOUT} --event-generator-list RES
 echo "Making xml file $XMLOUT"
 
+nice gmkspl -p -14,-12,12,14 -t $TARGET -o ${XMLOUT} --event-generator-list RES \
+  -n $NKNOTS -e $MAX_ENERGY
