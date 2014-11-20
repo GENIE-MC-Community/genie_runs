@@ -1,6 +1,7 @@
 #!/bin/sh
 
-# See config/EventGeneratorListAssembler.xml for other valid channels.
+NKNOTS=100
+MAX_ENERGY=0.4
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
@@ -13,6 +14,7 @@ ARGON40="1000180400"
 TARGET=$OXYGEN
 TARGET=$PROTON
 TARGET=$CARBON
+TARGET=$ARGON40
 
 # Optionally supply an extra tag for the file name.
 XMLOUT=vle_${TARGET}_splines

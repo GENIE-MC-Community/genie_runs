@@ -17,7 +17,9 @@ OXYGEN="1000080160"
 TARGET=$CARBON
 TARGET=$OXYGEN
 
+SPLINEFILE=vle_${TARGET}_splines.xml
+
 gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.02 -r 101 \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
+  --seed 2989819 --cross-sections $SPLINEFILE \
   --event-generator-list VLE \
   >& run_log.txt

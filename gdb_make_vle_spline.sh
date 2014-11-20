@@ -1,10 +1,7 @@
 #!/bin/sh
 
-
 NKNOTS=100
 MAX_ENERGY=0.4
-
-# See config/EventGeneratorListAssembler.xml for other valid channels.
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
