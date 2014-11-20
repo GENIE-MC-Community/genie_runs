@@ -17,7 +17,7 @@ OXYGEN="1000080160"
 TARGET=$OXYGEN
 TARGET=$CARBON
 
-gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -r 101 \
+gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -f 'x*exp(-x)' -r 101 \
   --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
   >& run_log.txt
 
