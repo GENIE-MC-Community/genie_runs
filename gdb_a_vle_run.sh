@@ -20,7 +20,7 @@ TARGET=$ARGON40
 SPLINEFILE=vle_${TARGET}_splines.xml
 
 gdb -tui --args gevgen -n $NUMEVT -p 12 -t $TARGET -r 101 \
-  -e 0.01,0.03 -f 'x*exp(-x)' \
+  -e 0.025,0.035 -f 'x*exp(-x)' \
   --seed 2989819 --cross-sections $SPLINEFILE \
   --message-thresholds Messenger_laconic.xml \
   --event-generator-list VLE
