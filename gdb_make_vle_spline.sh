@@ -27,4 +27,5 @@ XMLOUT=${XMLOUT}.xml
 echo "Making xml file $XMLOUT"
 
 gdb -tui --args gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE \
+  --message-thresholds Messenger_laconic.xml \
   -n $NKNOTS -e $MAX_ENERGY

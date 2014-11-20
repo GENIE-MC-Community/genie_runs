@@ -14,4 +14,5 @@ OXYGEN="1000080160"
 TARGET=$OXYGEN
 
 gdb -tui --args gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -r 101 \
+  --message-thresholds Messenger_laconic.xml \
   --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml
