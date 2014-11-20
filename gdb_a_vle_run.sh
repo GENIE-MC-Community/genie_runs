@@ -12,14 +12,15 @@ fi
 # http://genie.hepforge.org/doxygen/html/PDGCodes_8h_source.html
 CARBON="1000060120"
 OXYGEN="1000080160"
+ARGON40="1000180400"
 
 TARGET=$OXYGEN
+TARGET=$ARGON40
 
 SPLINEFILE=vle_${TARGET}_splines.xml
 
-gdb -tui --args gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.02 -r 101 \
+gdb -tui --args gevgen -n $NUMEVT -p 12 -t $TARGET -r 101 \
+  -e 0.01,0.03 -f 'x*exp(-x)' \
   --seed 2989819 --cross-sections $SPLINEFILE \
   --message-thresholds Messenger_laconic.xml \
   --event-generator-list VLE
-
-# --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
