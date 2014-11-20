@@ -13,13 +13,15 @@ fi
 PROTON="1000010010"
 CARBON="1000060120"
 OXYGEN="1000080160"
+ARGON40="1000180400"
 
 TARGET=$CARBON
 TARGET=$OXYGEN
+TARGET=$ARGON40
 
 SPLINEFILE=vle_${TARGET}_splines.xml
 
-gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.02 -r 101 \
+gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.01,0.03 -r 101 \
   --seed 2989819 --cross-sections $SPLINEFILE \
   --event-generator-list VLE \
   >& run_log.txt
