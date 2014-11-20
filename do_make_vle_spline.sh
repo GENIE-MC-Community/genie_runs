@@ -24,4 +24,5 @@ fi
 XMLOUT=${XMLOUT}.xml
 echo "Making xml file $XMLOUT"
 
-nice gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE
+nice gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE \
+  -n $NKNOTS -e $MAX_ENERGY
