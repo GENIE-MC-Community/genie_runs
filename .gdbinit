@@ -37,6 +37,18 @@ printf "The event number is %d\n", ievent
 end
 
 # 5
-#break KPhaseSpace.cxx:65
+#break EventGeneratorListAssembler.cxx:60
+break Algorithm.cxx:267
 
-#break KineUtils.cxx:477
+# 6
+break BergerReinSehgalRESPXSec.cxx:861
+
+# 7
+break BergerReinSehgalRESPXSec.cxx:915
+
+# 8
+break ReinSeghalRESPXSec.cxx:363
+
+# 9
+break ReinSeghalRESPXSec.cxx:404
+
