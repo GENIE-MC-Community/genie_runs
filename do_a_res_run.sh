@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NUMEVT=1000
+NUMEVT=100
 if [ $# -gt 0 ]; then
   NUMEVT=$1
 fi
@@ -20,3 +20,4 @@ gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -f 'x*exp(-x)' -r 101 \
   --event-generator-list RES \
   >& run_log.txt
 
+# --message-thresholds Messenger_rambling.xml \
