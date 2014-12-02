@@ -26,7 +26,7 @@ make_spline() {
   XMLOUT=${XMLOUT}.xml
   echo "Making xml file $XMLOUT"
 
-  nice gmkspl -p -14,-12,12,14 -t $TARGET -o $XMLOUT \
+  nice gmkspl -p 12,14,16 -t $TARGET -o $XMLOUT \
   --event-generator-list SingleKaon \
   -n $NKNOTS -e $MAX_ENERGY
 }
