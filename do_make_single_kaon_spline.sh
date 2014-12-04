@@ -16,6 +16,9 @@ TARGET=$OXYGEN
 TARGET=$CARBON
 TARGET=$PROTON
 
+NEUTRINOS="-14,-12,12,14"
+NEUTRINOS="12,14"
+
 make_spline() {
   # Optionally supply an extra tag for the file name.
   XMLOUT=${CHANNEL}_${TARGET}_splines
@@ -26,7 +29,7 @@ make_spline() {
   XMLOUT=${XMLOUT}.xml
   echo "Making xml file $XMLOUT"
 
-  nice gmkspl -p 12,14 -t $TARGET -o $XMLOUT \
+  nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
   --event-generator-list SingleKaon \
   -n $NKNOTS -e $MAX_ENERGY
 }
