@@ -34,3 +34,5 @@ make_spline() {
 TARGET=$PROTON
 make_spline
 
+TARGET=$CARBON
+make_spline
