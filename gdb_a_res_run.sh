@@ -16,7 +16,7 @@ OXYGEN="1000080160"
 TARGET=$CARBON
 
 gdb -tui --args gevgen -n $NUMEVT -p -14 -t $TARGET -e 2 -r 101 \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-NuMIsmall.xml \
   --message-thresholds Messenger_whisper.xml \
   --event-generator-list RES
 
