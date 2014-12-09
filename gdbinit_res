@@ -41,8 +41,16 @@ end
 break Algorithm.cxx:267
 
 # 6
-break BergerReinSehgalRESPXSec.cxx:903
+break BergerReinSehgalRESPXSec.cxx:861
 
 # 7
-break BergerReinSehgalRESPXSec.cxx:915
+break BergerReinSehgalRESPXSec.cxx:960
 
+# 8
+break ReinSeghalRESPXSec.cxx:363
+
+# 9
+break ReinSeghalRESPXSec.cxx:404
+
+# 10
+break ReinSeghalCOHPiPXSec.cxx:200

@@ -52,3 +52,5 @@ break ReinSeghalRESPXSec.cxx:363
 # 9
 break ReinSeghalRESPXSec.cxx:404
 
+# 10
+break ReinSeghalCOHPiPXSec.cxx:200
