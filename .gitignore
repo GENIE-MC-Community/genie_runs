@@ -3,7 +3,7 @@
 *.gst.root
 *.gtrac.root
 
-*splines*xml
+*xml
 *log*txt
 
 input-flux.root
