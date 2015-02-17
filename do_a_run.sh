@@ -1,6 +1,6 @@
 #!/bin/sh
 
-NUMEVT=1000
+NUMEVT=10
 if [ $# -gt 0 ]; then
   NUMEVT=$1
 fi
@@ -15,6 +15,8 @@ OXYGEN="1000080160"
 TARGET=$OXYGEN
 TARGET=$CARBON
 
+SPLINEFILE=gxspl-NuMIsmall.xml
+
 gevgen -n $NUMEVT -p -14,14 -t $TARGET -e 2,10 -f 'x*exp(-x)' -r 101 \
-  --seed 2989819 --cross-sections $XSECSPLINEDIR/gxspl-vA-v2.8.0.xml \
+  --seed 2989819 --cross-sections $XSECSPLINEDIR/$SPLINEFILE \
   >& run_log.txt

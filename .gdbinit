@@ -44,28 +44,16 @@ end
 break QELKinematicsGenerator.cxx:116
 
 # 7
-break KineGeneratorWithCache.cxx:78
-
-# 8
-break KineGeneratorWithCache.cxx:83
-
-# 9
 break QELKinematicsGenerator.cxx:499
 
-# 10
-break LwlynSmithQELCCPXSec.cxx:82
-
-# 11
-break LwlynSmithQELCCPXSec.cxx:114
-commands 11
-printf "xsec = %g; ml = %f; Q2 = %f", xsec, ml, -1.0*q2
-end
-
-# 12 - After algorithm loop
+# 8 - After algorithm loop
 break EventGenerator.cxx:195
 
-# 13
+# 9
 break FermiMover.cxx:73
 
-# 14 
+# 10 
 break FermiMover.cxx:130
+
+# 11
+break EffectiveSF.cxx:69
