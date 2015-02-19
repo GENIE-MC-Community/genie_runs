@@ -61,13 +61,7 @@ NEUTRINOS="12,14"
 NEUTRINOS="-14,14"
 
 make_spline() {
-  # Optionally supply an extra tag for the file name.
-  XMLOUT=${CHANNEL}_${TARGET}_splines
-  if [ $# -gt 0 ]; then
-    XMLOUT=${XMLOUT}_$1
-  fi
-  # Add the file extension
-  XMLOUT=${XMLOUT}.xml
+  XMLOUT=${CHANNEL}_${TARGET}_splines.xml
   echo "Making xml file $XMLOUT"
 
   nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
