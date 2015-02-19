@@ -2,6 +2,47 @@
 
 NKNOTS=100
 MAX_ENERGY=0.4
+CHANNEL="vle"
+EVGENLIST="VLE"
+HELPFLAG=0
+
+help()
+{
+cat <<EOF
+Usage: ./do_make_vle_spline.sh -<f>|--<flag> arg
+                               -h / --help        : print the help menu
+                               -k / --knots #     : # of knots
+                               -e / --maxenergy # : max energy
+EOF
+}
+
+while [[ $# > 0 ]]
+do
+    key="$1"
+    shift
+
+    case $key in
+        -h|--help)
+            HELPFLAG=1
+            ;;
+        -k|--knots)
+            NKNOTS="$1"
+            shift
+            ;;
+        -e|--maxenergy)
+            MAX_ENERGY="$1"
+            shift
+            ;;
+        *)     # Unknown option
+            ;;
+    esac
+done
+
+if [[ $HELPFLAG -eq 1 ]]; then
+  help
+  exit 0
+fi
+
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
@@ -16,13 +57,20 @@ TARGET=$PROTON
 TARGET=$CARBON
 TARGET=$ARGON40
 
-# Optionally supply an extra tag for the file name.
-XMLOUT=vle_${TARGET}_splines
-if [ $# -gt 0 ]; then
-  XMLOUT=${XMLOUT}_$1
-fi
-XMLOUT=${XMLOUT}.xml
-echo "Making xml file $XMLOUT"
+NEUTRINOS="-12,12"
 
-nice gmkspl -p 12,-12 -t $TARGET -o ${XMLOUT} --event-generator-list VLE \
+make_spline() {
+  XMLOUT=${CHANNEL}_${TARGET}_splines.xml
+  echo "Making xml file $XMLOUT"
+
+  nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
+  --event-generator-list $EVGENLIST \
   -n $NKNOTS -e $MAX_ENERGY
+}
+
+TARGET=$OXYGEN
+make_spline
+
+TARGET=$CARBON
+make_spline
+
