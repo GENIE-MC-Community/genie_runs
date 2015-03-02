@@ -40,20 +40,14 @@ silent
 printf "xsec = %g ; E = %f ; Q^2 = %f\n", xsec, E, gQ2
 end
 
-# 6
-break QELKinematicsGenerator.cxx:116
-
-# 7
-break QELKinematicsGenerator.cxx:499
-
-# 8 - After algorithm loop
+# 6 - After algorithm loop
 break EventGenerator.cxx:195
 
-# 9
+# 7
 break FermiMover.cxx:73
 
-# 10 
-break FermiMover.cxx:130
-
-# 11
+# 8
 break EffectiveSF.cxx:69
+
+# 9
+break EffectiveSF.cxx:281
