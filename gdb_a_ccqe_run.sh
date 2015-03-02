@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Generic SN run...
-
 NUMEVT=1000
 if [ $# -gt 0 ]; then
   NUMEVT=$1
@@ -17,6 +15,7 @@ CARBON="1000060120"
 OXYGEN="1000080160"
 
 TARGET=$OXYGEN
+TARGET=$CARBON
 
 gdb -tui --args gevgen -n $NUMEVT -p 14 -t $TARGET -e 1 -r 101 \
   --seed 2989819 --cross-sections $SPLINEFILE \
