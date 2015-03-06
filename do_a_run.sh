@@ -2,7 +2,7 @@
 
 NUMEVT=100
 SPLINEFILE=$XSECSPLINEDIR/gxspl-NuMIsmall.xml 
-LIST="ALL"
+LIST="Default"
 HELPFLAG=0
 SEED=2989819
 
@@ -98,7 +98,7 @@ if [[ $HELPFLAG -eq 1 ]]; then
 fi
 
 
-if [[ $LIST == "ALL" ]]; then
+if [[ $LIST == "Default" ]]; then
     if [[ -e gxspl-NuMIsmall.xml ]]; then
         SPLINEFILE=gxspl-NuMIsmall.xml
     fi
@@ -123,7 +123,7 @@ fi
 echo "Using spline file $SPLINEFILE"
 
 EVGENSTRING=""
-if [[ $LIST != "ALL" ]]; then
+if [[ $LIST != "Default" ]]; then
     EVGENSTRING="--event-generator-list $LIST"
 fi
 
