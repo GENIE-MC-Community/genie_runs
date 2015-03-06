@@ -29,7 +29,7 @@ Usage: ./do_make_spline.sh -<f>|--<flag> arg
                             -k / --knots #     : # of knots
                             -e / --maxenergy # : max energy
                             -t / --target #    : single target for now
-                            -n / --nus # or #1,#2, etc. (no spaces)
+                            -u / --nus # or #1,#2, etc. (no spaces)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -72,7 +72,7 @@ do
             TARGET="$1"
             shift
             ;;
-        -n|--nus)
+        -u|--nus)
             NEUTRINOS="$1"
             shift
             ;;

@@ -33,7 +33,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -n / --numevt NUM      : # of events
                         -r / --run NUM         : run # (default 101)
                         -e / --energy NUM(RNG) : e or emin,emax
-                        -n / --nus NU,NU,ETC   : neutrinos list (default -14,14)
+                        -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -96,6 +96,10 @@ do
         -g|--gdb)
             GDB="YES"
             ;;
+        -u|--nus)
+            NEUTRINOS="$1"
+            shift
+            ;;        
         *)     # Unknown option
             ;;
     esac
