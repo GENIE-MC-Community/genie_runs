@@ -22,7 +22,7 @@ GDB="NO"
 
 help()
 {
-cat <<EOF
+    cat <<EOF
 
 
 Usage: ./do_a_run.sh    -<f>|--<flag> arg
@@ -54,7 +54,16 @@ in $XSECSPLINEDIR.
 EOF
 }
 
+#
+# If there are no arguments, print help (and exit)
+#
+if [[ $# == 0 ]]; then
+    HELPFLAG=1
+fi
+
+#
 # Parse args
+#
 while [[ $# > 0 ]]
 do
     key="$1"
@@ -92,6 +101,7 @@ do
     esac
 done
 
+
 if [[ $HELPFLAG -eq 1 ]]; then
     help
     exit 0
@@ -127,22 +137,20 @@ if [[ $LIST != "Default" ]]; then
     EVGENSTRING="--event-generator-list $LIST"
 fi
 
+echo ""
+echo "Command: "
+echo ""
 if [[ "$GDB" == "YES" ]]; then
-
-    echo "gdb"
-    
-# gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET
-#     -e $ENERGY -r $RUNNUM \
-#     --seed 2989819 --cross-sections $SPLINEFILE \
-#     --message-thresholds Messenger_whisper.xml $EVGENSTRING
-
+    echo "gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET "
+    echo "    -e $ENERGY -r $RUNNUM \\ "
+    echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
+    echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING "
 else
-
-    echo "no gdb"
-    
+    echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET "
+    echo "    -e $ENERGY -r $RUNNUM \\ "
+    echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
+    echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING \\ "
+    echo "    >& run_log.txt"
 fi
 
-# gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.01,0.03 -f 'x*exp(-x)' -r 101 \
-#   --seed 2989819 --cross-sections $SPLINEFILE \
-#   --event-generator-list VLE \
-#   >& run_log.txt
+
