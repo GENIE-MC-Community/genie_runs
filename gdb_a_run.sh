@@ -4,6 +4,7 @@ NUMEVT=100
 SPLINEFILE=$XSECSPLINEDIR/gxspl-NuMIsmall.xml 
 LIST="ALL"
 HELPFLAG=0
+SEED=2989819
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
@@ -11,28 +12,36 @@ HELPFLAG=0
 PROTON="1000010010"
 CARBON="1000060120"
 OXYGEN="1000080160"
+ARGON40="1000180400"
 TARGET=$CARBON
 RUNNUM=101
 ENERGY=1
 NEUTRINOS="-14,14"
+GDB="NO"
+
 
 help()
 {
 cat <<EOF
 
 
-Usage: ./do_make_coh_spline.sh -<f>|--<flag> arg
-                               -l / --list    : interaction list (default all)
-                               -h / --help    : print the help menu
-                               -t / --target  : default == 1000060120
-                               -n / --numevt  : # of events
-                               -r / --run     : run # (default 101)
-                               -e / --energy  : e or emin,emax
-                               -n / --nus     : neutrinos list (default -14,14)
+Usage: ./do_a_run.sh    -<f>|--<flag> arg
+                        -h / --help            : print the help menu
+                        -g / --gdb             : pipe the run through GDB
+                        -l / --list LIST       : interaction list (default all)
+                        -t / --target NUM      : default == 1000060120
+                        -n / --numevt NUM      : # of events
+                        -r / --run NUM         : run # (default 101)
+                        -e / --energy NUM(RNG) : e or emin,emax
+                        -n / --nus NU,NU,ETC   : neutrinos list (default -14,14)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
 * Possible targets: 1000060120 (Carbon), 1000080160 (Oxygen)
+
+* Example neutrino lists: -14,14 or -14,-12,12,14 
+
+* Example energies: 0.05 or 1,10
 
 * For splines, the script first searches: $XSECSPLINEDIR 
 
@@ -75,6 +84,9 @@ do
             ENERGY="$1"
             shift
             ;;
+        -g|--gdb)
+            GDB="YES"
+            ;;
         *)     # Unknown option
             ;;
     esac
@@ -115,7 +127,22 @@ if [[ $LIST != "ALL" ]]; then
     EVGENSTRING="--event-generator-list $LIST"
 fi
 
+if [[ "$GDB" == "YES" ]]; then
+
+    echo "gdb"
+    
 # gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET
 #     -e $ENERGY -r $RUNNUM \
 #     --seed 2989819 --cross-sections $SPLINEFILE \
 #     --message-thresholds Messenger_whisper.xml $EVGENSTRING
+
+else
+
+    echo "no gdb"
+    
+fi
+
+# gevgen -n $NUMEVT -p 12 -t $TARGET -e 0.01,0.03 -f 'x*exp(-x)' -r 101 \
+#   --seed 2989819 --cross-sections $SPLINEFILE \
+#   --event-generator-list VLE \
+#   >& run_log.txt
