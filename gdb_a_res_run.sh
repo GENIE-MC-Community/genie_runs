@@ -1,7 +1,5 @@
 #!/bin/sh
 
-# Generic SN run...
-
 NUMEVT=10
 if [ $# -gt 0 ]; then
   NUMEVT=$1
