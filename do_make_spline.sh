@@ -3,6 +3,7 @@
 NKNOTS=50
 MAX_ENERGY=100
 HELPFLAG=0
+GDB="NO"
 
 # http://pdg.lbl.gov/2007/reviews/montecarlorpp.pdf
 # http://pdg.lbl.gov/2011/mcdata/mc_particle_id_contents.html
@@ -18,9 +19,12 @@ LIST="Default"
 
 help()
 {
-cat <<EOF
+    cat <<EOF
+
+
 Usage: ./do_make_spline.sh -<f>|--<flag> arg
                             -h / --help        : print the help menu
+                            -g / --gdb         : pipe the run through GDB
                             -l / --list LIST   : interaction list (default all)
                             -k / --knots #     : # of knots
                             -e / --maxenergy # : max energy
@@ -33,9 +37,20 @@ Usage: ./do_make_spline.sh -<f>|--<flag> arg
 
 * Example neutrino lists: -14,14 or -14,-12,12,14 
 
+
 EOF
 }
 
+#
+# If there are no arguments, print help (and exit)
+#
+if [[ $# == 0 ]]; then
+    HELPFLAG=1
+fi
+
+#
+# Parse args
+#
 while [[ $# > 0 ]]
 do
     key="$1"
@@ -65,22 +80,38 @@ do
             LIST="$1"
             shift
             ;;
+        -g|--gdb)
+            GDB="YES"
+            ;;
         *)     # Unknown option
             ;;
     esac
 done
 
+
 if [[ $HELPFLAG -eq 1 ]]; then
-  help
-  exit 0
+    help
+    exit 0
 fi
 
-       
+
 
 XMLOUT=${LIST}_${TARGET}_splines.xml
 echo "Making xml file $XMLOUT"
 
-echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
-echo "  --event-generator-list $LIST \\ "
-echo "  -n $NKNOTS -e $MAX_ENERGY "
 
+EVGENSTRING=""
+if [[ $LIST != "Default" ]]; then
+    EVGENSTRING="--event-generator-list $LIST"
+fi
+
+echo ""
+echo "Command: "
+echo ""
+if [[ "$GDB" == "YES" ]]; then
+    echo "gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
+    echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+else
+    echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
+    echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+fi
