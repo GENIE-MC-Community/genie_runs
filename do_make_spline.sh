@@ -111,7 +111,11 @@ echo ""
 if [[ "$GDB" == "YES" ]]; then
     echo "gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
     echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+    gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
+        -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING
 else
     echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
     echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+    nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
+         -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING
 fi
