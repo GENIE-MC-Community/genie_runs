@@ -145,21 +145,21 @@ if [[ "$GDB" == "YES" ]]; then
     echo "    -e $ENERGY -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
     echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING "
-    # gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
-    #     -e $ENERGY -r $RUNNUM \
-    #     --seed $SEED --cross-sections $SPLINEFILE \
-    #     --message-thresholds Messenger_whisper.xml $EVGENSTRING
+    gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
+        -e $ENERGY -r $RUNNUM \
+        --seed $SEED --cross-sections $SPLINEFILE \
+        --message-thresholds Messenger_whisper.xml $EVGENSTRING
 else
     echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET "
     echo "    -e $ENERGY -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
     echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING \\ "
     echo "    >& run_log.txt"
-    # gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
-    #        -e $ENERGY -r $RUNNUM \
-    #        --seed $SEED --cross-sections $SPLINEFILE \
-    #        --message-thresholds Messenger_whisper.xml $EVGENSTRING \
-    #        >& run_log.txt
+    gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
+           -e $ENERGY -r $RUNNUM \
+           --seed $SEED --cross-sections $SPLINEFILE \
+           --message-thresholds Messenger_whisper.xml $EVGENSTRING \
+           >& run_log.txt
 fi
 
 
