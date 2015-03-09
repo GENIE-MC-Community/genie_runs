@@ -36,7 +36,3 @@ commands 4
 printf "The event number is %d\n", ievent
 end
 
-# 5
-#break KPhaseSpace.cxx:65
-
-#break KineUtils.cxx:477

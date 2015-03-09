@@ -34,6 +34,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -r / --run NUM         : run # (default 101)
                         -e / --energy NUM(RNG) : e or emin,emax
                         -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
+                        -s / --seed #          : random number seed (default 2989819)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -101,6 +102,10 @@ do
             NEUTRINOS="$1"
             shift
             ;;        
+        -s|--seed)
+            SEED="$1"
+            shift
+            ;;        
         *)     # Unknown option
             ;;
     esac
@@ -163,7 +168,7 @@ else
     gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
            -e $ENERGY -r $RUNNUM \
            --seed $SEED --cross-sections $SPLINEFILE \
-           --message-thresholds Messenger_whisper.xml $EVGENSTRING \
+           --message-thresholds Messenger.xml $EVGENSTRING \
            >& run_log.txt
 fi
 
