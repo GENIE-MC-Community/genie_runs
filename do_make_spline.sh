@@ -26,14 +26,15 @@ Usage: ./do_make_spline.sh -<f>|--<flag> arg
                             -h / --help        : print the help menu
                             -g / --gdb         : pipe the run through GDB
                             -l / --list LIST   : interaction list (default all)
-                            -k / --knots #     : # of knots
-                            -e / --maxenergy # : max energy
-                            -t / --target #    : single target for now
+                            -k / --knots #     : # of knots (default 50)
+                            -e / --maxenergy # : max energy (default 100 GeV)
+                            -t / --target #    : _single_ target for now
                             -u / --nus # or #1,#2, etc. (no spaces)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
-* Example targets: 1000060120 (Carbon) or 1000080160 (Oxygen) or etc.
+* Example targets: 1000060120 (Carbon) or 1000080160 (Oxygen) or 1000180400 (Argon40)
+or etc.
 
 * Example neutrino lists: -14,14 or -14,-12,12,14 
 

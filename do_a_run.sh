@@ -29,15 +29,16 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -h / --help            : print the help menu
                         -g / --gdb             : pipe the run through GDB
                         -l / --list LIST       : interaction list (default all)
-                        -t / --target NUM      : default == 1000060120
-                        -n / --numevt NUM      : # of events
+                        -t / --target NUM      : _single target_, default == 1000060120
+                        -n / --numevt NUM      : # of events (default 100)
                         -r / --run NUM         : run # (default 101)
                         -e / --energy NUM(RNG) : e or emin,emax
                         -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
-* Possible targets: 1000060120 (Carbon), 1000080160 (Oxygen)
+* Possible targets: 1000060120 (Carbon), 1000080160 (Oxygen), 1000180400 (Argon40),
+etc.
 
 * Example neutrino lists: -14,14 or -14,-12,12,14 
 
