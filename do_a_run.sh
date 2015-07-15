@@ -18,6 +18,9 @@ RUNNUM=101
 ENERGY=1
 NEUTRINOS="-14,14"
 GDB="NO"
+FUNCTIONSTRING=""
+FUNC=""
+HAVEFUNC="NO"
 
 
 help()
@@ -35,6 +38,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -e / --energy NUM(RNG) : e or emin,emax
                         -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
                         -s / --seed #          : random number seed (default 2989819)
+                        -f / --func            : flux shape (required for energy range)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -44,6 +48,11 @@ etc.
 * Example neutrino lists: -14,14 or -14,-12,12,14 
 
 * Example energies: 0.05 or 1,10
+
+* If an energy range is specified, also specify a function, e.g. 
+
+  ./do_a_run.sh -e 1,10 -f '1/x'
+  ./do_a_run.sh -e 1,10 -f 'x*exp(-x)'
 
 * For splines, the script first searches: $XSECSPLINEDIR 
 
@@ -106,6 +115,11 @@ do
             SEED="$1"
             shift
             ;;        
+        -f|--func)
+            FUNC="$1"
+            HAVEFUNC="YES"
+            shift
+            ;;
         *)     # Unknown option
             ;;
     esac
@@ -148,26 +162,44 @@ if [[ $LIST != "Default" ]]; then
     EVGENSTRING="--event-generator-list $LIST"
 fi
 
+# Try to get energies as an array
+EARR=($(echo $ENERGY | tr "," " "))
+# Get the length of the energy array.
+EARRLEN=${#EARR[@]}
+if [[ $EARRLEN -gt 1 ]]; then
+  # We need a function
+  if [[ "$HAVEFUNC" == "NO" ]]; then
+    FUNCTIONSTRING="-f 1/x"
+    echo ""
+    echo "NOTE:"
+    echo "When supplying an energy range, we must use a function for the shape."
+    echo "Defaulting to 1/x."
+  else 
+    FUNCTIONSTRING="-f $FUNC"
+  fi 
+fi
+
+
 echo ""
 echo "Command: "
 echo ""
 if [[ "$GDB" == "YES" ]]; then
-    echo "gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET "
-    echo "    -e $ENERGY -r $RUNNUM \\ "
+    echo "gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
+    echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
     echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING "
     gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
-        -e $ENERGY -r $RUNNUM \
+        -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
         --seed $SEED --cross-sections $SPLINEFILE \
         --message-thresholds Messenger_whisper.xml $EVGENSTRING
 else
-    echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET "
-    echo "    -e $ENERGY -r $RUNNUM \\ "
+    echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
+    echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
     echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING \\ "
     echo "    >& run_log.txt"
     gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
-           -e $ENERGY -r $RUNNUM \
+           -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
            --seed $SEED --cross-sections $SPLINEFILE \
            --message-thresholds Messenger.xml $EVGENSTRING \
            >& run_log.txt
