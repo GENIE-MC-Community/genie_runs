@@ -139,6 +139,8 @@ if [[ $LIST == "Default" ]]; then
 elif [[ $LIST == "CCQE" || 
               $LIST == "COH" ||
               $LIST == "DIS" ||
+              $LIST == "CCDIS" ||
+              $LIST == "NCDIS" ||
               $LIST == "RES" ||
               $LIST == "SingleKaon" ||
               $LIST == "VLE" ]]; then    
