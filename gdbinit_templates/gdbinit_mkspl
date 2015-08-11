@@ -50,3 +50,5 @@ break GEVGDriver.cxx:220
 # 10
 break GSLXSecFunc.cxx:218
 
+# 11
+break COHXSec.cxx:65
