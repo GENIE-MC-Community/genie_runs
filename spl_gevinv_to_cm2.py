@@ -5,6 +5,11 @@ of inverse GeV.
 
 Usage:
     python spl_gevinv_to_cm2.py spline.xml
+
+Note that we print out a new "spline" file with name cm2_<old file>. While the
+new file has the same XML structure as a GENIE spline file, it is NOT usable
+as a spline by GENIE (it is meant to be looked at by eye if you want to see 
+cross sections in cm2, not to be used by GENIE).
 '''
 from __future__ import print_function
 import sys
