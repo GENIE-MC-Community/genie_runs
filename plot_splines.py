@@ -9,10 +9,12 @@ Usage:
 '''
 from __future__ import print_function
 from xml.etree import ElementTree as ET
+import subprocess
 
 meter = 5.07e+15  # 5.07e+15 / GeV
 centimeter = 0.01 * meter
 cm2 = centimeter * centimeter
+p_has_dvipng = False
 
 
 def decode_flavor(flavor):
@@ -116,38 +118,44 @@ def xml_to_list_of_dicts(xml_file_name):
 
 def plot_xsec_dict(xsd, plot_cm2):
     import matplotlib.pyplot as plt
-    from matplotlib import rc
     import re
 
-    rc('font',**{'family':'sans-serif','sans-serif':['Helvetica']})
-    rc('text', usetex=True)
+    global p_has_dvipng
+    plt.clf()
+    plt.ioff()
+    plt.rc('font', **{'family': 'sans-serif', 'sans-serif': ['Helvetica']})
+    if p_has_dvipng:
+        plt.rc('text', usetex=True)
 
     title = xsd['description']['algorithm'] + " " + \
-            decode_nc_cc(d['description']['proc']) + \
-            " on " + decode_target(xsd['description']['tgt'])
+        d['description']['flavor'] + " " +\
+        decode_nc_cc(d['description']['proc']) + \
+        " on " + decode_target(xsd['description']['tgt'])
     file_name = re.sub(r'\s+', '_', title)
-    y_axis_title = r'Cross Section (per $\text{GeV}^{-2}$)'
-    if plot_cm2:
-        y_axis_title = r'Cross Section (per $10^{-38}~\text{cm}^{-2}$)'
-    x_axis_title = r'GeV'
+
+    y_axis_title = r''
+    if p_has_dvipng:
+        y_axis_title = r'Cross Section (per GeV$^{-2}$)'
+        if plot_cm2:
+            y_axis_title = r'Cross Section (per $10^{-38}$ cm$^{-2}$)'
+    else:
+        y_axis_title = r'Cross Section (per GeV^(-2))'
+        if plot_cm2:
+            y_axis_title = r'Cross Section (per 10^(-38) cm^(-2))'
+            
+    x_axis_title = r'Neutrino Energy (GeV)'
     xsecs_tup = xsd['xsecs']
     energies = []
     xsecs = []
     for tup in xsecs_tup:
         energies.append(tup[0])
-        xsecs.append(tup[1] / cm2 if plot_cm2 else tup[1])
+        xsecs.append(tup[1] / cm2 / 1e-38 if plot_cm2 else tup[1])
 
     plt.plot(energies, xsecs)
     plt.xlabel(x_axis_title)
     plt.ylabel(y_axis_title)
     plt.title(title)
-    plt.savefig(file_name)
-    plt.show()
-    print(title)
-    print(y_axis_title)
-    print(x_axis_title)
-    print(energies)
-    print(xsecs)
+    plt.savefig(file_name + ".pdf")
 
 
 def spline_list_split(option, opt, value, parser):
@@ -163,13 +171,19 @@ if __name__ == '__main__':
     parser.add_option('-s', '--splines', type='string', action='callback',
                       callback=spline_list_split, dest='spline_files')
     (options, args) = parser.parse_args()
+
+    global p_has_dvipng
+    p = subprocess.Popen(["which", "dvipng"],
+                         stdout=subprocess.PIPE,
+                         stderr=subprocess.PIPE)
+    (dvipng_out, dvipng_err) = p.communicate()
+    if len(dvipng_err) == 0:
+        p_has_dvipng = True
     
     list_of_dicts = []
     for spline_file in options.spline_files:
         list_of_dicts.extend(xml_to_list_of_dicts(spline_file))
 
     for d in list_of_dicts:
-        print(d)
         print(d['description'])
         print(plot_xsec_dict(d, options.plot_cm2))
-
