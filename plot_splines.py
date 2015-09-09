@@ -129,7 +129,7 @@ def plot_xsec_dict(xsd, plot_cm2):
 
     title = xsd['description']['algorithm'] + " " + \
         d['description']['flavor'] + " " +\
-        decode_nc_cc(d['description']['proc']) + \
+        decode_nc_cc(xsd['description']['proc']) + \
         " on " + decode_target(xsd['description']['tgt'])
     file_name = re.sub(r'\s+', '_', title)
 
