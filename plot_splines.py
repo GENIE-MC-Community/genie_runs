@@ -186,4 +186,4 @@ if __name__ == '__main__':
 
     for d in list_of_dicts:
         print(d['description'])
-        print(plot_xsec_dict(d, options.plot_cm2))
+        plot_xsec_dict(d, options.plot_cm2)
