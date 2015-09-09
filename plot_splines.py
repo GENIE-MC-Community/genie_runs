@@ -3,7 +3,7 @@
 Open a GENIE spline file with formatting circa 2.9.N.
 Usage:
     python plot_splines.py <-f>/<-flag> <arg>
-                           -c / --cm2         : Plot cross seciton in cm^{-2}
+                           -c / --cm2         : Plot cross seciton in cm^{2}
                            -s / --splines spline1,spline2,spline3,...
 
 '''
@@ -137,11 +137,11 @@ def plot_xsec_dict(xsd, plot_cm2):
     if p_has_dvipng:
         y_axis_title = r'Cross Section (per GeV$^{-2}$)'
         if plot_cm2:
-            y_axis_title = r'Cross Section (per $10^{-38}$ cm$^{-2}$)'
+            y_axis_title = r'Cross Section (per $10^{-38}$ cm$^{2}$)'
     else:
         y_axis_title = r'Cross Section (per GeV^(-2))'
         if plot_cm2:
-            y_axis_title = r'Cross Section (per 10^(-38) cm^(-2))'
+            y_axis_title = r'Cross Section (per 10^(-38) cm^2)'
             
     x_axis_title = r'Neutrino Energy (GeV)'
     xsecs_tup = xsd['xsecs']
@@ -167,7 +167,7 @@ if __name__ == '__main__':
 
     parser = OptionParser(usage=__doc__)
     parser.add_option('-c', '--cm2', dest='plot_cm2', default=False,
-                      help=r'Plot in cm^{-2}', action='store_true')
+                      help=r'Plot in cm^{2}', action='store_true')
     parser.add_option('-s', '--splines', type='string', action='callback',
                       callback=spline_list_split, dest='spline_files')
     (options, args) = parser.parse_args()

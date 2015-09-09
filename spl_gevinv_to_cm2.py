@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 '''
 Read a GENIE spline and print it back with cross section units of cm2 instead
-of inverse GeV.
+of inverse GeV^2.
 
 Usage:
     python spl_gevinv_to_cm2.py spline.xml
