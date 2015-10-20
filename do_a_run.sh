@@ -30,15 +30,16 @@ help()
 
 Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -h / --help            : print the help menu
-                        -g / --gdb             : pipe the run through GDB
+                        -g / --gdb             : pipe the run through GDB (default no)
                         -l / --list LIST       : interaction list (default all)
                         -t / --target NUM      : _single target_, default == 1000060120
                         -n / --numevt NUM      : # of events (default 100)
                         -r / --run NUM         : run # (default 101)
-                        -e / --energy NUM(RNG) : e or emin,emax
+                        -e / --energy NUM(RNG) : e or emin,emax (default 1 GeV)
                         -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
                         -s / --seed #          : random number seed (default 2989819)
                         -f / --func            : flux shape (required for energy range)
+                                                 (default to 1/x)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -133,6 +134,7 @@ fi
 
 
 if [[ $LIST == "Default" ]]; then
+    # Look locally first to override defaults.
     if [[ -e gxspl-NuMIsmall.xml ]]; then
         SPLINEFILE=gxspl-NuMIsmall.xml
     fi
@@ -146,9 +148,11 @@ elif [[ $LIST == "CCQE" ||
               $LIST == "SingleKaon" ||
               $LIST == "VLE" ]]; then    
     FILENAM=${LIST}_${TARGET}_splines.xml
+    # Check the XSECSPLINEDIR for the targetted splines...
     if [[ -e $XSECSPLINEDIR/$FILENAM ]]; then
         SPLINEFILE=$XSECSPLINEDIR/$FILENAM
     fi
+    # ...but prefer local splines if they exist.
     if [[ -e $FILENAM ]]; then
         SPLINEFILE=$FILENAM
     fi
