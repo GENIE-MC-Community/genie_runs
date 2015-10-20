@@ -120,7 +120,6 @@ do
             ;;        
         -w|--whisper)
             PREFERWHISPER="YES"
-            shift
             ;;
         -f|--func)
             FUNC="$1"
@@ -131,6 +130,8 @@ do
             ;;
     esac
 done
+
+echo $RUNNUM
 
 
 if [[ $HELPFLAG -eq 1 ]]; then
@@ -219,12 +220,10 @@ else
     echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
     echo "    $MESSGSTR $EVGENSTRING \\ "
-    echo "    >& run_log.txt"
+    echo "    >& run_${RUNNUM}_log.txt"
     gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
            -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
            --seed $SEED --cross-sections $SPLINEFILE \
            $MESSGSTR $EVGENSTRING \
-           >& run_log.txt
+           >& run_${RUNNUM}_log.txt
 fi
-
-
