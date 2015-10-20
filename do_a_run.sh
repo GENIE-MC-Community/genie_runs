@@ -21,7 +21,7 @@ GDB="NO"
 FUNCTIONSTRING=""
 FUNC=""
 HAVEFUNC="NO"
-
+PREFERWHISPER="NO"
 
 help()
 {
@@ -31,6 +31,8 @@ help()
 Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -h / --help            : print the help menu
                         -g / --gdb             : pipe the run through GDB (default no)
+                        -w / --whisper         : prefer Messenger_whisper.xml (if 
+                                                 available, default to no)
                         -l / --list LIST       : interaction list (default all)
                         -t / --target NUM      : _single target_, default == 1000060120
                         -n / --numevt NUM      : # of events (default 100)
@@ -38,8 +40,8 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -e / --energy NUM(RNG) : e or emin,emax (default 1 GeV)
                         -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
                         -s / --seed #          : random number seed (default 2989819)
-                        -f / --func            : flux shape (required for energy range)
-                                                 (default to 1/x)
+                        -f / --func            : flux shape (required for energy range,
+                                                 default to 1/x)
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -116,6 +118,10 @@ do
             SEED="$1"
             shift
             ;;        
+        -w|--whisper)
+            PREFERWHISPER="YES"
+            shift
+            ;;
         -f|--func)
             FUNC="$1"
             HAVEFUNC="YES"
@@ -186,6 +192,15 @@ if [[ $EARRLEN -gt 1 ]]; then
   fi 
 fi
 
+MESSGSTR="--message-thresholds Messenger.xml"
+if [[ $PREFERWHISPER == "YES" ]]; then 
+    if [[ -e $GENIE/config/Messenger_whisper.xml ]]; then
+        MESSGSTR="--message-thresholds Messenger_whisper.xml"
+    else
+        echo ""
+        echo "Messenger_whisper.xml is not available."
+    fi
+fi
 
 echo ""
 echo "Command: "
@@ -194,21 +209,21 @@ if [[ "$GDB" == "YES" ]]; then
     echo "gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
     echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
-    echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING "
+    echo "    $MESSGSTR $EVGENSTRING "
     gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
         -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
         --seed $SEED --cross-sections $SPLINEFILE \
-        --message-thresholds Messenger_whisper.xml $EVGENSTRING
+        $MESSGSTR $EVGENSTRING
 else
     echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
     echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
-    echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING \\ "
+    echo "    $MESSGSTR $EVGENSTRING \\ "
     echo "    >& run_log.txt"
     gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
            -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
            --seed $SEED --cross-sections $SPLINEFILE \
-           --message-thresholds Messenger.xml $EVGENSTRING \
+           $MESSGSTR $EVGENSTRING \
            >& run_log.txt
 fi
 
