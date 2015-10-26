@@ -16,7 +16,7 @@ ARGON40="1000180400"
 TARGET=$CARBON
 RUNNUM=101
 ENERGY=1
-NEUTRINOS="-14,14"
+NEUTRINOS="14"
 GDB="NO"
 FUNCTIONSTRING=""
 FUNC=""
@@ -38,7 +38,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -n / --numevt NUM      : # of events (default 100)
                         -r / --run NUM         : run # (default 101)
                         -e / --energy NUM(RNG) : e or emin,emax (default 1 GeV)
-                        -u / --nus NU,NU,ETC   : neutrinos list (default -14,14)
+                        -u / --nus NU          : neutrino flavor (default 14)
                         -s / --seed #          : random number seed (default 2989819)
                         -f / --func            : flux shape (required for energy range,
                                                  default to 1/x)
@@ -48,7 +48,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
 * Possible targets: 1000060120 (Carbon), 1000080160 (Oxygen), 1000180400 (Argon40),
 etc.
 
-* Example neutrino lists: -14,14 or -14,-12,12,14 
+* Example neutrino flavors: -16, -14, -12, 12, 14, or 16
 
 * Example energies: 0.05 or 1,10
 
