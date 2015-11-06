@@ -7,3 +7,6 @@
 *log*txt
 
 input-flux.root
+
+nohup.out
+*.tgz
