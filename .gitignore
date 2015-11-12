@@ -10,3 +10,5 @@ input-flux.root
 
 nohup.out
 *.tgz
+
+*.pdf
