@@ -38,7 +38,8 @@ def decode_target(targetcode):
     return {
         '1000010010': 'Hydrogen',
         '1000060120': 'Carbon',
-        '1000080160': 'Oxygen'
+        '1000080160': 'Oxygen',
+        '1000180400': 'Argon40'
     }.get(targetcode, 'PDG Ion Code: ' + targetcode)
 
 
@@ -133,6 +134,8 @@ def plot_xsec_dict(xsd, plot_cm2):
         " on " + decode_target(xsd['description']['tgt'])
     if xsd['description'].has_key('res'):
         title += ' Res ' + xsd['description']['res']
+    if xsd['description'].has_key('N'):
+        title += ' N ' + xsd['description']['N']
     file_name = re.sub(r'\s+', '_', title)
 
     y_axis_title = r''
