@@ -131,6 +131,8 @@ def plot_xsec_dict(xsd, plot_cm2):
         xsd['description']['flavor'] + " " +\
         decode_nc_cc(xsd['description']['proc']) + \
         " on " + decode_target(xsd['description']['tgt'])
+    if xsd['description'].has_key('res'):
+        title += ' Res ' + xsd['description']['res']
     file_name = re.sub(r'\s+', '_', title)
 
     y_axis_title = r''
