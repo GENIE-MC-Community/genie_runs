@@ -1,7 +1,7 @@
 #!/bin/sh
 
 NUMEVT=100
-SPLINEFILE=$XSECSPLINEDIR/gxspl-NuMIsmall.xml 
+SPLINEFILE=$XSECSPLINEDIR/gxspl-small.xml
 LIST="Default"
 HELPFLAG=0
 SEED=2989819
@@ -131,7 +131,7 @@ do
     esac
 done
 
-echo $RUNNUM
+echo "Starting run $RUNNUM for list $LIST"
 
 
 if [[ $HELPFLAG -eq 1 ]]; then
@@ -153,6 +153,7 @@ elif [[ $LIST == "CCQE" ||
               $LIST == "NCDIS" ||
               $LIST == "RES" ||
               $LIST == "SingleKaon" ||
+              $LIST == "CCMECTensor" ||
               $LIST == "VLE" ]]; then    
     FILENAM=${LIST}_${TARGET}_splines.xml
     # Check the XSECSPLINEDIR for the targetted splines...
