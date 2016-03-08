@@ -36,13 +36,3 @@ commands 4
 printf "The event number is %d\n", ievent
 end
 
-# 5
-break COHKinematicsGenerator.cxx:781
-
-# 6
-break BergerSehgalFMCOHPiPXSec2015.cxx:83
-commands 6
-silent
-printf "E = %f; Q2 = %f; y = %f; t = %f\n", E ,Q2, y, t
-end
-  
