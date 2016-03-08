@@ -127,10 +127,16 @@ if __name__ == '__main__':
     list_of_dicts1 = xml_to_list_of_dicts(xml_file1, nsig)
     list_of_dicts2 = xml_to_list_of_dicts(xml_file2, nsig)
 
+    n1 = 0
+    n2 = 0
+    n_overlap = 0
     # Compare all the dictionries in the first list to those in the second.
     for d1 in list_of_dicts1:
+        n1 += 1
         for d2 in list_of_dicts2:
+            n2 += 1
             if d1['description'] == d2['description']:
+                n_overlap += 1
                 print("Found matching descriptions for %s", d1['description'])
                 if d1['xsecs'] == d2['xsecs']:
                     print("  Cross sections match!")
@@ -170,3 +176,6 @@ if __name__ == '__main__':
                     else:
                         print("    Lengths do not match.")
                         print("    Nothing more to say...")
+
+    print("Found %d cross sections in file 1, %d cross sections in file 2"
+          ", and %d ovleraps" % (n1, n2, n_overlap))
