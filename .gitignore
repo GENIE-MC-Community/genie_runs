@@ -12,3 +12,6 @@ nohup.out
 *.tgz
 
 *.pdf
+
+# very specific root stuff
+g4lbne_*.root
