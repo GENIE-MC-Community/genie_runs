@@ -153,6 +153,7 @@ elif [[ $LIST == "CCQE" ||
               $LIST == "NCDIS" ||
               $LIST == "RES" ||
               $LIST == "SingleKaon" ||
+              $LIST == "CCMEC" ||
               $LIST == "CCMECTensor" ||
               $LIST == "VLE" ]]; then    
     FILENAM=${LIST}_${TARGET}_splines.xml
