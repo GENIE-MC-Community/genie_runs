@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 NUMEVT=100
 SPLINEFILE=$XSECSPLINEDIR/gxspl-small.xml

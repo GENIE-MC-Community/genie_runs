@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/usr/bin/env bash
 
 NKNOTS=50
 MAX_ENERGY=100
