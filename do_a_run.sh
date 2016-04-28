@@ -145,18 +145,26 @@ if [[ $LIST == "Default" ]]; then
     if [[ -e gxspl-NuMIsmall.xml ]]; then
         SPLINEFILE=gxspl-NuMIsmall.xml
     fi
-elif [[ $LIST == "CCQE" || 
-              $LIST == "COH" ||
-              $LIST == "DIS" ||
-              $LIST == "DFR" ||
-              $LIST == "CCDIS" ||
-              $LIST == "NCDIS" ||
-              $LIST == "RES" ||
-              $LIST == "SingleKaon" ||
-              $LIST == "CCMEC" ||
-              $LIST == "CCMECTensor" ||
-              $LIST == "VLE" ]]; then    
-    FILENAM=${LIST}_${TARGET}_splines.xml
+else
+    if [[ $LIST == "CCQE" || 
+        $LIST == "COH" ||
+        $LIST == "DIS" ||
+        $LIST == "DFR" ||
+        $LIST == "CCDIS" ||
+        $LIST == "NCDIS" ||
+        $LIST == "RES" ||
+        $LIST == "SingleKaon" ||
+        $LIST == "CCMEC" ||
+        $LIST == "CCMECTensor" ||
+        $LIST == "VLE" ]]; then    
+        FILENAM=${LIST}_${TARGET}_splines.xml
+    elif [[ $LIST == "CCCOH" ||
+        $LIST == "NCCOH" ]]; then
+        FILENAM=COH_${TARGET}_splines.xml
+    else
+        echo "Error! This script doesn't know how to handle the LIST."
+        exit 1
+    fi
     # Check the XSECSPLINEDIR for the targetted splines...
     if [[ -e $XSECSPLINEDIR/$FILENAM ]]; then
         SPLINEFILE=$XSECSPLINEDIR/$FILENAM
