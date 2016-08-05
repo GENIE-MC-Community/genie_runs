@@ -153,6 +153,7 @@ else
         $LIST == "CCDIS" ||
         $LIST == "NCDIS" ||
         $LIST == "RES" ||
+        $LIST == "CCRES" ||
         $LIST == "SingleKaon" ||
         $LIST == "CCMEC" ||
         $LIST == "CCMECTensor" ||
