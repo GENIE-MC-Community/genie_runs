@@ -36,3 +36,8 @@ commands 4
 printf "The event number is %d\n", ievent
 end
 
+break MECGenerator.cxx:115
+
+break MECInteractionListGenerator.cxx:59
+
+break Target.cxx:180
