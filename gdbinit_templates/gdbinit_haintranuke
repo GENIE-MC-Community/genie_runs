@@ -36,15 +36,10 @@ commands 4
 printf "The event number is %d\n", ievent
 end
 
-# 5
-#break EventGeneratorListAssembler.cxx:60
-break Algorithm.cxx:267
+break HAIntranuke.cxx:143 if fate=4
 
-# 6
-break BergerReinSehgalRESPXSec.cxx:903
+break HAIntranuke.cxx:307
 
-# 7
-break BergerReinSehgalRESPXSec.cxx:915
+break HAIntranuke.cxx:518
 
-# 8
-break RESInteractionListGenerator.cxx:76
+

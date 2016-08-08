@@ -52,3 +52,6 @@ break GSLXSecFunc.cxx:218
 
 # 11
 break COHXSec.cxx:65
+
+# 12
+break QPMDISPXSec.cxx:79

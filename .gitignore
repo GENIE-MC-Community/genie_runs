@@ -15,3 +15,6 @@ nohup.out
 
 # very specific root stuff
 g4lbne_*.root
+
+archive
+*_validation

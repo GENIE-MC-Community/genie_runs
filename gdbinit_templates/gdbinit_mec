@@ -36,15 +36,8 @@ commands 4
 printf "The event number is %d\n", ievent
 end
 
-# 5
-#break EventGeneratorListAssembler.cxx:60
-break Algorithm.cxx:267
+break MECGenerator.cxx:115
 
-# 6
-break BergerReinSehgalRESPXSec.cxx:903
+break MECInteractionListGenerator.cxx:59
 
-# 7
-break BergerReinSehgalRESPXSec.cxx:915
-
-# 8
-break RESInteractionListGenerator.cxx:76
+break Target.cxx:180
