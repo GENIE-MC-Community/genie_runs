@@ -110,15 +110,17 @@ echo ""
 echo "Command: "
 echo ""
 if [[ "$GDB" == "YES" ]]; then
-    echo "gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
-    echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+    echo "gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\"
+    echo "    -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \\"
+    echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING"
     gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
         -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \
-        --message-thresholds Messenger_whisper.xml $EVGENSTRING        
+        --message-thresholds Messenger_whisper.xml $EVGENSTRING
 else
-    echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\ "
-    echo "  -n $NKNOTS -e $MAX_ENERGY $EVGENSTRING "
+    echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\"
+    echo "     -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \\"
+    echo "     --message-thresholds Messenger.xml $EVGENSTRING"
     nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
          -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \
-         --message-thresholds Messenger.xml $EVGENSTRING         
+         --message-thresholds Messenger.xml $EVGENSTRING
 fi
