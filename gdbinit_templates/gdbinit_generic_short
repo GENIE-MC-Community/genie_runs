@@ -31,8 +31,10 @@ end
 break EventGenerator.cxx:118 if ffwd==false
 
 # 4 top of the event loop
-break gEvGen.cxx:282
+break gEvGen.cxx:303
 commands 4
 printf "The event number is %d\n", ievent
 end
 
+# 5 select an interaction
+break PhysInteractionSelector.cxx:186
