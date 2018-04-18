@@ -13,6 +13,8 @@ CARBON="1000060120"
 OXYGEN="1000080160"
 ARGON40="1000180400"
 
+TUNE="G00_00a_00_000"
+
 TARGET=$PROTON
 NEUTRINOS="-14,14"
 LIST="Default"
@@ -30,6 +32,7 @@ Usage: ./do_make_spline.sh -<f>|--<flag> arg
                             -e / --maxenergy # : max energy (default 100 GeV)
                             -t / --target #    : _single_ target for now
                             -u / --nus # or #1,#2, etc. (no spaces)
+                            --tune             : tune
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -38,6 +41,7 @@ or etc.
 
 * Example neutrino lists: -14,14 or -14,-12,12,14 
 
+* Example tunes: G00_00a_00_000, G18_10j_00_000
 
 EOF
 }
@@ -84,6 +88,10 @@ do
         -g|--gdb)
             GDB="YES"
             ;;
+        --tune)
+            TUNE="$1"
+            shift
+            ;;
         *)     # Unknown option
             ;;
     esac
@@ -113,14 +121,17 @@ if [[ "$GDB" == "YES" ]]; then
     echo "gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\"
     echo "    -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \\"
     echo "    --message-thresholds Messenger_whisper.xml $EVGENSTRING"
+    echo "    --tune $TUNE"
     gdb -tui --args nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
         -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \
-        --message-thresholds Messenger_whisper.xml $EVGENSTRING
+        --message-thresholds Messenger_whisper.xml $EVGENSTRING \
+        --tune $TUNE
 else
     echo "nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \\"
     echo "     -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \\"
     echo "     --message-thresholds Messenger.xml $EVGENSTRING"
     nice gmkspl -p $NEUTRINOS -t $TARGET -o $XMLOUT \
          -n $NKNOTS -e $MAX_ENERGY --disable-bare-xsec-pre-calc \
-         --message-thresholds Messenger.xml $EVGENSTRING
+         --message-thresholds Messenger.xml $EVGENSTRING \
+         --tune $TUNE
 fi

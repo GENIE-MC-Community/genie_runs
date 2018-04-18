@@ -23,6 +23,8 @@ FUNC=""
 HAVEFUNC="NO"
 PREFERWHISPER="NO"
 
+TUNE="G00_00a_00_000"
+
 help()
 {
     cat <<EOF
@@ -42,6 +44,7 @@ Usage: ./do_a_run.sh    -<f>|--<flag> arg
                         -s / --seed #          : random number seed (default 2989819)
                         -f / --func            : flux shape (required for energy range,
                                                  default to 1/x)
+                        --tune                 : tune
 
 * Possible interaction lists: (empty for all), CCQE, COH, RES, SingleKaon, VLE
 
@@ -57,13 +60,14 @@ etc.
   ./do_a_run.sh -e 1,10 -f '1/x'
   ./do_a_run.sh -e 1,10 -f 'x*exp(-x)'
 
-* For splines, the script first searches: $XSECSPLINEDIR 
+* For splines, the script searches: $PWD, $XSECSPLINEDIR 
 
 * Channel specific splines are preferred to general splines if found.
 
 * Local (this directory) spline files are preferred to those located
 in $XSECSPLINEDIR.
 
+* Example tunes: G00_00a_00_000, G18_10j_00_000
 
 EOF
 }
@@ -126,6 +130,10 @@ do
             HAVEFUNC="YES"
             shift
             ;;
+        --tune)
+            TUNE="$1"
+            shift
+            ;;
         *)     # Unknown option
             ;;
     esac
@@ -156,7 +164,6 @@ else
         $LIST == "CCRES" ||
         $LIST == "SingleKaon" ||
         $LIST == "CCMEC" ||
-        $LIST == "CCMECTensor" ||
         $LIST == "VLE" ]]; then    
         FILENAM=${LIST}_${TARGET}_splines.xml
     elif [[ $LIST == "CCCOH" ||
@@ -221,20 +228,20 @@ if [[ "$GDB" == "YES" ]]; then
     echo "gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
     echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
-    echo "    $MESSGSTR $EVGENSTRING "
+    echo "    $MESSGSTR $EVGENSTRING --tune $TUNE"
     gdb -tui --args gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
         -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
         --seed $SEED --cross-sections $SPLINEFILE \
-        $MESSGSTR $EVGENSTRING
+        $MESSGSTR $EVGENSTRING --tune $TUNE
 else
     echo "gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \\"
     echo "    -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \\ "
     echo "    --seed $SEED --cross-sections $SPLINEFILE \\ "
-    echo "    $MESSGSTR $EVGENSTRING \\ "
+    echo "    $MESSGSTR $EVGENSTRING --tune $TUNE \\ "
     echo "    >& run_${RUNNUM}_log.txt"
     gevgen -n $NUMEVT -p $NEUTRINOS -t $TARGET \
            -e $ENERGY $FUNCTIONSTRING -r $RUNNUM \
            --seed $SEED --cross-sections $SPLINEFILE \
-           $MESSGSTR $EVGENSTRING \
+           $MESSGSTR $EVGENSTRING --tune $TUNE \
            >& run_${RUNNUM}_log.txt
 fi
