@@ -33,3 +33,6 @@ break AlgConfigPool.cxx:538
 
 # 11
 break Algorithm.cxx:165
+
+# 12
+break AlgConfigPool.cxx:113
